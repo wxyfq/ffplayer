@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 project(ffplay)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(PkgConfig)
 PKG_CHECK_MODULES(AVUTIL REQUIRED libavutil)
@@ -23,7 +23,7 @@ link_directories(
         ${SWSCALE_LIBRARY_DIRS}
         ${SWRESAMPLE_LIBRARY_DIRS}
         )
-add_executable(ffplay ffplay.c cmdutils.c)
+add_executable(ffplay ffplay.cpp cmdutils.c)
 
 target_include_directories(ffplay PUBLIC
         ${AVUTIL_INCLUDE_DIRS}
