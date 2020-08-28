@@ -1,0 +1,47 @@
+cmake_minimum_required(VERSION 3.17)
+project(ffplay)
+
+set(CMAKE_C_STANDARD 99)
+
+find_package(PkgConfig)
+PKG_CHECK_MODULES(AVUTIL REQUIRED libavutil)
+PKG_CHECK_MODULES(SDL2 REQUIRED sdl2)
+PKG_CHECK_MODULES(AVFORMAT REQUIRED libavformat)
+PKG_CHECK_MODULES(AVDEVICE REQUIRED libavdevice)
+PKG_CHECK_MODULES(AVCODEC REQUIRED libavcodec)
+PKG_CHECK_MODULES(AVFILTER REQUIRED libavfilter)
+PKG_CHECK_MODULES(SWSCALE REQUIRED libswscale)
+PKG_CHECK_MODULES(SWRESAMPLE REQUIRED libswresample)
+
+link_directories(
+        ${AVUTIL_LIBRARY_DIRS}
+        ${SDL2_LIBRARY_DIRS}
+        ${AVFORMAT_LIBRARY_DIRS}
+        ${AVDEVICE_LIBRARY_DIRS}
+        ${AVCODEC_LIBRARY_DIRS}
+        ${AVFILTER_LIBRARY_DIRS}
+        ${SWSCALE_LIBRARY_DIRS}
+        ${SWRESAMPLE_LIBRARY_DIRS}
+        )
+add_executable(ffplay ffplay.c cmdutils.c)
+
+target_include_directories(ffplay PUBLIC
+        ${AVUTIL_INCLUDE_DIRS}
+        ${SDL2_INCLUDE_DIRS}
+        ${AVFORMAT_INCLUDE_DIRS}
+        ${AVDEVICE_INCLUDE_DIRS}
+        ${AVCODEC_INCLUDE_DIRS}
+        ${AVFILTER_INCLUDE_DIRS}
+        ${SWRESAMPLE_INCLUDE_DIRS}
+        ${SWSCALE_INCLUDE_DIRS}
+        )
+target_link_libraries(ffplay
+        ${AVUTIL_LIBRARIES}
+        ${AVFORMAT_LIBRARIES}
+        ${AVDEVICE_LIBRARIES}
+        ${AVCODEC_LIBRARIES}
+        ${SDL2_LIBRARIES}
+        ${AVFILTER_LIBRARIES}
+        ${SWRESAMPLE_LIBRARIES}
+        ${SWSCALE_LIBRARIES}
+        )
